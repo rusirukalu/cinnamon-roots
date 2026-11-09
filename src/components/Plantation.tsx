@@ -27,12 +27,12 @@ export function Plantation() {
         <Reveal className="plantation-wide">
           <figure>
             <ResponsiveImage
-              photo={PHOTOS.landscape}
+              photo={PHOTOS.groupTourCollective}
               sizes="(max-width: 700px) 100vw, 72vw"
             />
             <figcaption>
-              <span>Landscape study / Southern Province</span>
-              <PhotoCredit photo={PHOTOS.landscape} />
+              <span>The Collective Experience · Palassa Plantation</span>
+              <PhotoCredit photo={PHOTOS.groupTourCollective} />
             </figcaption>
           </figure>
         </Reveal>

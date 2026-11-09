@@ -10,10 +10,10 @@ export function Heritage() {
     <section id="heritage" className="heritage">
       <div className="heritage-photo">
         <ResponsiveImage
-          photo={PHOTOS.palms}
+          photo={PHOTOS.couplePeelingDemo}
           sizes="(max-width: 700px) 100vw, 42vw"
         />
-        <PhotoCredit photo={PHOTOS.palms} />
+        <PhotoCredit photo={PHOTOS.couplePeelingDemo} />
       </div>
 
       <div className="heritage-content">

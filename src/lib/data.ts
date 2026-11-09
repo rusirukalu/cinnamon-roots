@@ -79,19 +79,19 @@ export const PHOTOS: Record<string, PhotoItem> = {
     position: "50% 60%",
   },
 
-  // Original Authentic Photography
+  // Complete Collection of 8 Authentic Original Photographs
   artisanGrove: {
     id: "artisan-grove",
     src: "/images/artisan-grove.jpg",
-    alt: "Master artisan peeling cinnamon in the plantation grove surrounded by freshly harvested branches and rolled quills",
-    caption: "01 / The Master Artisan at Work",
+    alt: "Master artisan working with cinnamon quills in the Palassa plantation grove",
+    caption: "The Master Artisan at Work · Palassa Grove",
     isOriginal: true,
   },
   cinnamonOil: {
     id: "cinnamon-oil",
     src: "/images/cinnamon-bark-oil.jpg",
     alt: "Pure Ceylon Cinnamon Bark Oil and hand-rolled quills at Ceylon Cinnamon Roots",
-    caption: "Pure Cinnamon Bark Oil & Quills",
+    caption: "Pure Cinnamon Bark Oil & Hand-Rolled Quills",
     isOriginal: true,
   },
   outerSkinScraping: {
@@ -111,43 +111,41 @@ export const PHOTOS: Record<string, PhotoItem> = {
   cinnamonPeeling: {
     id: "cinnamon-peeling",
     src: "/images/cinnamon-peeling.jpg",
-    alt: "Local producer demonstrating the skilled process of peeling paper-thin Ceylon cinnamon bark",
+    alt: "Master artisan demonstrating the skilled process of peeling paper-thin Ceylon cinnamon bark",
     caption: "Traditional Cinnamon Peeling",
     isOriginal: true,
   },
-
-  // Refreshments & Landscape (to be replaced in subsequent batches)
-  tea: {
-    id: "tea",
-    image: "https://images.unsplash.com/photo-1643067077447-78239a403a18",
-    page: "https://unsplash.com/photos/a-cup-of-tea-next-to-cinnamon-limes-limes-and-cinnamon-sticks-Sr-dbIWbap8",
-    author: "Prchi Palwe",
-    alt: "Warm cinnamon tea arranged with spices",
-    caption: "Warm Cinnamon Tea",
+  coupleRefreshments: {
+    id: "couple-refreshments",
+    src: "/images/couple-refreshments.jpg",
+    alt: "Travelers enjoying freshly brewed cinnamon tea, sweet treats, and conversation with the artisan at Ceylon Cinnamon Roots",
+    caption: "Warm Cinnamon Tea, Treats & Artisan Conversation",
+    isOriginal: true,
   },
-  palms: {
-    id: "palms",
-    image: "https://images.unsplash.com/photo-1521706862577-47b053587f91",
-    page: "https://unsplash.com/photos/palm-fronds-in-tropical-rainforest-9G1kXjqOq4U",
-    author: "CHUTTERSNAP",
-    alt: "Overlapping green palm fronds in tropical Sri Lanka",
-    caption: "The language of the tropics",
+  couplePeelingDemo: {
+    id: "couple-peeling-demo",
+    src: "/images/couple-peeling-demo.jpg",
+    alt: "Travelers closely observing the delicate peeling process demonstrated by the local artisan",
+    caption: "Discovering the Living Craft Behind Every Quill",
+    isOriginal: true,
   },
-  landscape: {
-    id: "landscape",
-    image: "https://images.unsplash.com/photo-1712144234879-b2c4b4e54bb2",
-    page: "https://unsplash.com/photos/a-lush-green-forest-filled-with-lots-of-trees-swhpF6VRGWc",
-    author: "sander traa",
-    alt: "Sunlit tropical hills and palms in southern Sri Lanka",
-    caption: "Sri Lanka, beyond the familiar",
+  groupTourCollective: {
+    id: "group-tour-collective",
+    src: "/images/group-tour-collective.jpg",
+    alt: "International group of travelers gathered around the artisan in the plantation grove at Ceylon Cinnamon Roots",
+    caption: "The Collective Experience · Palassa Plantation",
+    isOriginal: true,
   },
 };
 
 export const GALLERY_PHOTOS: PhotoItem[] = [
+  PHOTOS.groupTourCollective,
+  PHOTOS.coupleRefreshments,
   PHOTOS.artisanGrove,
   PHOTOS.cinnamonPeeling,
   PHOTOS.barkRubbing,
   PHOTOS.outerSkinScraping,
+  PHOTOS.couplePeelingDemo,
   PHOTOS.cinnamonOil,
 ];
 

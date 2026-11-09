@@ -9,8 +9,8 @@ export function Taste() {
     <section id="taste" className="section taste">
       <div className="taste-grid">
         <div className="taste-photo">
-          <ResponsiveImage photo={PHOTOS.tea} />
-          <PhotoCredit photo={PHOTOS.tea} />
+          <ResponsiveImage photo={PHOTOS.coupleRefreshments} />
+          <PhotoCredit photo={PHOTOS.coupleRefreshments} />
         </div>
 
         <div className="taste-content">
