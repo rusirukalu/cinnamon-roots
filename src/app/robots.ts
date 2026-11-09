@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
 
 /**
- * Generates dynamic robots.txt with dedicated permissions for search crawlers
- * and AI search / Answer Engine Optimization (AEO) bots.
+ * Generates dynamic robots.txt adhering to Module 2 of the Universal SEO standard:
+ * - Public crawlers allowed to root
+ * - Internal /api/ and /_next/ paths protected
+ * - Dedicated permissions for modern AI answer engines (AEO)
+ * - Canonical sitemap reference
  */
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -10,9 +13,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: "/",
+        disallow: ["/api/", "/_next/"],
       },
       {
-        // Explicitly permit modern AI answer engines and search agents
         userAgent: [
           "GPTBot",
           "PerplexityBot",
@@ -23,6 +26,7 @@ export default function robots(): MetadataRoute.Robots {
           "cohere-ai",
         ],
         allow: "/",
+        disallow: ["/api/", "/_next/"],
       },
     ],
     sitemap: "https://cinnamonroots.com/sitemap.xml",

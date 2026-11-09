@@ -3,6 +3,7 @@ import {
   buildOrganizationSchema,
   buildTouristAttractionSchema,
   buildFaqSchema,
+  buildWebSiteSchema,
   getAllSchemas,
 } from "@/lib/schema";
 import robots from "@/app/robots";
@@ -43,14 +44,22 @@ describe("Structured Data / Schema.org (SEO & AEO)", () => {
     expect(firstFaq.acceptedAnswer.text).toContain("Palassa, Thiththagalla");
   });
 
-  it("aggregates all schemas into a complete graph", () => {
+  it("builds a valid WebSite schema with search action", () => {
+    const schema = buildWebSiteSchema();
+    expect(schema["@type"]).toBe("WebSite");
+    expect(schema.name).toBe("Ceylon Cinnamon Roots");
+    expect(schema.url).toBe("https://cinnamonroots.com/");
+    expect(schema.potentialAction).toBeDefined();
+  });
+
+  it("aggregates all schemas into a complete graph with 4 root schemas", () => {
     const schemas = getAllSchemas();
-    expect(schemas).toHaveLength(3);
+    expect(schemas).toHaveLength(4);
   });
 });
 
 describe("Dynamic Metadata Routes (robots.ts & sitemap.ts)", () => {
-  it("robots() explicitly permits AI search bots and answer engines", () => {
+  it("robots() explicitly permits AI search bots, answer engines, and disallows internal paths", () => {
     const config = robots();
     expect(config.sitemap).toBe("https://cinnamonroots.com/sitemap.xml");
 
@@ -58,6 +67,12 @@ describe("Dynamic Metadata Routes (robots.ts & sitemap.ts)", () => {
     const aiRule = rules.find((r) => Array.isArray(r.userAgent) && r.userAgent.includes("GPTBot"));
     expect(aiRule).toBeDefined();
     expect(aiRule?.allow).toBe("/");
+    expect(aiRule?.disallow).toEqual(["/api/", "/_next/"]);
+
+    const generalRule = rules.find((r) => r.userAgent === "*");
+    expect(generalRule).toBeDefined();
+    expect(generalRule?.allow).toBe("/");
+    expect(generalRule?.disallow).toEqual(["/api/", "/_next/"]);
   });
 
   it("sitemap() returns accurate URL entry with proper frequency and priority", () => {

@@ -125,6 +125,26 @@ export function buildFaqSchema() {
 }
 
 /**
+ * Builds Schema.org WebSite structured data (Module 18)
+ * with internal search action / navigation intent.
+ */
+export function buildWebSiteSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Ceylon Cinnamon Roots",
+    url: "https://cinnamonroots.com/",
+    description:
+      "Authentic Ceylon cinnamon plantation & hands-on cultural experience in Sri Lanka.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: "https://cinnamonroots.com/#experience",
+      "query-input": "required name=search_term_string",
+    },
+  };
+}
+
+/**
  * Aggregates all JSON-LD schemas into a structured graph array.
  */
 export function getAllSchemas() {
@@ -132,5 +152,6 @@ export function getAllSchemas() {
     buildOrganizationSchema(),
     buildTouristAttractionSchema(),
     buildFaqSchema(),
+    buildWebSiteSchema(),
   ];
 }
