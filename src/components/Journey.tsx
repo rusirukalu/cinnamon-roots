@@ -9,7 +9,7 @@ export function Journey() {
     <section id="journey" className="section journey">
       <div className="section-heading">
         <Eyebrow number="03">The cinnamon journey</Eyebrow>
-        <span className="eyebrow">70 minutes / Guided by an artisan</span>
+        <span className="eyebrow">A visual journey from branch to quill</span>
       </div>
 
       <div className="journey-grid">
@@ -27,10 +27,10 @@ export function Journey() {
             </p>
           </Reveal>
           <figure className="journey-photo">
-            <ResponsiveImage photo={PHOTOS.bundle} />
+            <ResponsiveImage photo={PHOTOS.cinnamonPeeling} />
             <figcaption>
-              <span>Material study / Cinnamon</span>
-              <PhotoCredit photo={PHOTOS.bundle} />
+              <span>Traditional Cinnamon Peeling · Palassa</span>
+              <PhotoCredit photo={PHOTOS.cinnamonPeeling} />
             </figcaption>
           </figure>
         </div>
@@ -43,11 +43,35 @@ export function Journey() {
                 <span className="eyebrow">{stage.tag}</span>
                 <h3>{stage.title}</h3>
                 <p>{stage.text}</p>
+                {stage.imageSrc && (
+                  <div
+                    style={{
+                      marginTop: "1rem",
+                      borderRadius: "4px",
+                      overflow: "hidden",
+                      maxHeight: "180px",
+                      maxWidth: "280px",
+                      border: "1px solid var(--rule, #CCC4B7)",
+                    }}
+                  >
+                    <img
+                      src={stage.imageSrc}
+                      alt={stage.title}
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        display: "block",
+                      }}
+                      loading="lazy"
+                    />
+                  </div>
+                )}
               </div>
             </Reveal>
           ))}
           <p className="journey-endnote">
-            Not a factory tour. A connection to the craft.
+            Not a factory tour. A genuine connection to the craft.
           </p>
         </div>
       </div>

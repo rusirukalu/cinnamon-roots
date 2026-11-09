@@ -13,6 +13,26 @@ export function ResponsiveImage({
   priority = false,
   sizes = "(max-width: 700px) 100vw, 50vw",
 }: ResponsiveImageProps) {
+  // If the photo has a direct local source path (original photo)
+  if (photo.src) {
+    return (
+      <img
+        className={className}
+        src={photo.src}
+        alt={photo.alt}
+        style={{
+          objectPosition: photo.position,
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+        }}
+        loading={priority ? "eager" : "lazy"}
+        decoding="async"
+      />
+    );
+  }
+
+  // Priority Hero Multi-resolution Picture
   if (priority) {
     return (
       <picture>
@@ -47,6 +67,7 @@ export function ResponsiveImage({
     );
   }
 
+  // Multi-resolution Responsive Picture for standard bundle images
   return (
     <picture>
       <source

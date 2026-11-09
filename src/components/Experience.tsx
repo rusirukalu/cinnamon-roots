@@ -37,7 +37,7 @@ export function Experience() {
       <div className="experience-grid">
         <Reveal className="experience-photo">
           <figure>
-            <ResponsiveImage photo={PHOTOS.spice} />
+            <ResponsiveImage photo={PHOTOS.cinnamonOil} />
             <div className="image-note">
               <span className="eyebrow">The full experience</span>
               <span className="image-note-duration">
@@ -45,8 +45,8 @@ export function Experience() {
               </span>
             </div>
             <figcaption>
-              <span>Cinnamon, in all its detail</span>
-              <PhotoCredit photo={PHOTOS.spice} />
+              <span>Pure Cinnamon Bark Oil & Quills</span>
+              <PhotoCredit photo={PHOTOS.cinnamonOil} />
             </figcaption>
           </figure>
         </Reveal>

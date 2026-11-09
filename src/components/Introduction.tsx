@@ -51,10 +51,10 @@ export function Introduction() {
 
           <Reveal className="intro-photo" delay={150}>
             <figure>
-              <ResponsiveImage photo={PHOTOS.quills} />
+              <ResponsiveImage photo={PHOTOS.artisanGrove} />
               <figcaption>
-                <span>01 / A closer look</span>
-                <PhotoCredit photo={PHOTOS.quills} />
+                <span>01 / The Master Artisan at Work</span>
+                <PhotoCredit photo={PHOTOS.artisanGrove} />
               </figcaption>
             </figure>
           </Reveal>

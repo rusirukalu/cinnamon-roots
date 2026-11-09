@@ -68,53 +68,69 @@ export const PACKAGES: PackageOption[] = [
 ];
 
 export const PHOTOS: Record<string, PhotoItem> = {
+  // Hero background placeholder (kept separate per user instruction to plan hero separately)
   forest: {
     id: "forest",
     image: "https://images.unsplash.com/photo-1703566324597-9aa71bbab450",
     page: "https://unsplash.com/photos/a-lush-green-forest-filled-with-lots-of-trees-qi7sSLz74zQ",
     author: "Sadeep Jayashankha",
-    alt: "Sunlit rainforest canopy and ferns at Sinharaja in Sri Lanka; supporting landscape imagery",
+    alt: "Sunlit rainforest canopy and ferns in Sri Lanka",
     caption: "A study in Sri Lankan green",
     position: "50% 60%",
   },
-  quills: {
-    id: "quills",
-    image: "https://images.unsplash.com/photo-1720849433556-fb756c8fcdba",
-    page: "https://unsplash.com/photos/a-close-up-of-a-bunch-of-cinnamon-sticks-22TJLSCQhOk",
-    author: "Marek Studzinski",
-    alt: "Close-up of curled cinnamon bark, showing the texture and layers",
-    caption: "The quiet detail of cinnamon",
+
+  // Original Authentic Photography
+  artisanGrove: {
+    id: "artisan-grove",
+    src: "/images/artisan-grove.jpg",
+    alt: "Master artisan peeling cinnamon in the plantation grove surrounded by freshly harvested branches and rolled quills",
+    caption: "01 / The Master Artisan at Work",
+    isOriginal: true,
   },
-  bundle: {
-    id: "bundle",
-    image: "https://images.unsplash.com/photo-1632644365325-3b4246e9b9b1",
-    page: "https://unsplash.com/photos/cinnamon-sticks-tied-with-twine-on-a-white-wooden-surface-Ou1YhE9bw1Y",
-    author: "Catia Climovich",
-    alt: "Cinnamon sticks tied together with twine on a pale wooden surface",
-    caption: "Texture, warmth & a familiar aroma",
+  cinnamonOil: {
+    id: "cinnamon-oil",
+    src: "/images/cinnamon-bark-oil.jpg",
+    alt: "Pure Ceylon Cinnamon Bark Oil and hand-rolled quills at Ceylon Cinnamon Roots",
+    caption: "Pure Cinnamon Bark Oil & Quills",
+    isOriginal: true,
   },
-  spice: {
-    id: "spice",
-    image: "https://images.unsplash.com/photo-1622798337764-259682f03741",
-    page: "https://unsplash.com/photos/cinnamon-sticks-and-cinnamon-powder-on-a-table-Xvjs1G812Yo",
-    author: "Rens D",
-    alt: "A still life of cinnamon sticks and ground cinnamon",
-    caption: "A spice, seen a little differently",
+  outerSkinScraping: {
+    id: "outer-skin-scraping",
+    src: "/images/outer-skin-scraping.jpg",
+    alt: "Artisan demonstrating the removal of the rough outer bark layer with a traditional blade",
+    caption: "Removing the First Rough Skin",
+    isOriginal: true,
   },
+  barkRubbing: {
+    id: "bark-rubbing",
+    src: "/images/bark-rubbing.jpg",
+    alt: "Artisan rubbing the harvested cinnamon branch on a specialized stand to loosen the inner bark",
+    caption: "Rubbing the Cinnamon Bark",
+    isOriginal: true,
+  },
+  cinnamonPeeling: {
+    id: "cinnamon-peeling",
+    src: "/images/cinnamon-peeling.jpg",
+    alt: "Local producer demonstrating the skilled process of peeling paper-thin Ceylon cinnamon bark",
+    caption: "Traditional Cinnamon Peeling",
+    isOriginal: true,
+  },
+
+  // Refreshments & Landscape (to be replaced in subsequent batches)
   tea: {
     id: "tea",
     image: "https://images.unsplash.com/photo-1643067077447-78239a403a18",
     page: "https://unsplash.com/photos/a-cup-of-tea-next-to-cinnamon-limes-limes-and-cinnamon-sticks-Sr-dbIWbap8",
     author: "Prchi Palwe",
-    alt: "A cup of tea arranged with cinnamon, citrus and spices",
-    caption: "A moment to slow down",
+    alt: "Warm cinnamon tea arranged with spices",
+    caption: "Warm Cinnamon Tea",
   },
   palms: {
     id: "palms",
     image: "https://images.unsplash.com/photo-1521706862577-47b053587f91",
     page: "https://unsplash.com/photos/palm-fronds-in-tropical-rainforest-9G1kXjqOq4U",
     author: "CHUTTERSNAP",
-    alt: "Overlapping green palm fronds in a tropical rainforest",
+    alt: "Overlapping green palm fronds in tropical Sri Lanka",
     caption: "The language of the tropics",
   },
   landscape: {
@@ -125,38 +141,14 @@ export const PHOTOS: Record<string, PhotoItem> = {
     alt: "Sunlit tropical hills and palms in southern Sri Lanka",
     caption: "Sri Lanka, beyond the familiar",
   },
-  cake: {
-    id: "cake",
-    image: "https://images.unsplash.com/photo-1569775683473-c534979f35a9",
-    page: "https://unsplash.com/photos/baked-bread-moBQMk---6g",
-    author: "Yulia Khlebnikova",
-    alt: "Sliced loaf cake on a pale board",
-    caption: "The pleasure of a pause.",
-  },
 };
 
 export const GALLERY_PHOTOS: PhotoItem[] = [
-  {
-    id: "sticks",
-    image: "https://images.unsplash.com/photo-1611256243212-48a03787ea01",
-    page: "https://unsplash.com/photos/brown-wooden-sticks-on-white-table-UGUy1i6_-GQ",
-    author: "Diana Polekhina",
-    alt: "Cinnamon sticks on a light surface, a photographic study of the spice",
-    caption: "A familiar spice. A new perspective.",
-  },
-  {
-    id: "bark",
-    image: "https://images.unsplash.com/photo-1745090969926-b3f84175aa72",
-    page: "https://unsplash.com/photos/cinnamon-sticks-in-brown-pile-Yfs8M0ofXgg",
-    author: "Thibaud Constantin",
-    alt: "A pile of cinnamon sticks with textured bark and curled edges",
-    caption: "Beauty in the smallest details.",
-  },
-  {
-    ...PHOTOS.forest,
-    caption: "The green heart of Sri Lanka.",
-  },
-  PHOTOS.cake,
+  PHOTOS.artisanGrove,
+  PHOTOS.cinnamonPeeling,
+  PHOTOS.barkRubbing,
+  PHOTOS.outerSkinScraping,
+  PHOTOS.cinnamonOil,
 ];
 
 export const ITINERARY: ItineraryItem[] = [
@@ -200,23 +192,26 @@ export const JOURNEY_STAGES: JourneyStage[] = [
     tag: "02 · Harvest",
   },
   {
-    title: "Prepare the bark.",
-    text: "Observe the traditional removal of the rough outer skin followed by careful brass-rod rubbing to loosen the inner bark.",
-    tag: "03 · Prepare",
+    title: "Removing the first rough skin.",
+    text: "See how the rough outer layer is carefully scraped off using a traditional curved knife.",
+    tag: "03 · Scrape",
+    imageSrc: "/images/outer-skin-scraping.jpg",
   },
   {
-    title: "The art of peeling.",
-    text: "Watch a master local producer demonstrate the delicate, paper-thin peeling of pure Ceylon cinnamon bark.",
-    tag: "04 · Peel",
+    title: "Rubbing the cinnamon bark.",
+    text: "Observe how the branch is rubbed with a specialized stand to warm and loosen the inner bark before peeling.",
+    tag: "04 · Rub",
+    imageSrc: "/images/bark-rubbing.jpg",
   },
   {
-    title: "Hands-on participation.",
-    text: "Where safe and appropriate, take part in bark rubbing, scraping, and quill assembly under patient artisan supervision.",
-    tag: "05 · Participate",
+    title: "Delicate cinnamon peeling.",
+    text: "Watch a local producer demonstrate the skilled process of peeling continuous, paper-thin sheets of cinnamon bark.",
+    tag: "05 · Peel",
+    imageSrc: "/images/cinnamon-peeling.jpg",
   },
   {
-    title: "Grading & connection.",
-    text: "Understand drying, grading, and the journey from grower to merchant. Ask questions and take home freshly prepared cinnamon.",
+    title: "Connect & take home.",
+    text: "Participate under artisan supervision, learn drying and grading, ask questions, and enjoy freshly prepared cinnamon products.",
     tag: "06 · Connect",
   },
 ];

@@ -1,11 +1,13 @@
 export interface PhotoItem {
   id: string;
-  image: string;
-  page: string;
-  author: string;
+  image?: string;
+  src?: string;
+  page?: string;
+  author?: string;
   alt: string;
   caption: string;
   position?: string;
+  isOriginal?: boolean;
 }
 
 export interface ItineraryItem {
@@ -19,6 +21,7 @@ export interface JourneyStage {
   title: string;
   text: string;
   tag: string;
+  imageSrc?: string;
 }
 
 export interface FaqItem {

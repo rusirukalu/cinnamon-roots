@@ -113,11 +113,11 @@ export function Gallery() {
       </div>
 
       <div className="gallery-disclosure">
-        <span className="eyebrow">An editorial collection</span>
+        <span className="eyebrow">Authentic Visual Journal</span>
         <p>
-          All photographs are sourced from Unsplash. They illustrate the
-          atmosphere and materials of the story, not the actual premises,
-          artisans, guests or refreshments.
+          Original photography captured on-site at Ceylon Cinnamon Roots in
+          Palassa, Thiththagalla, Ahangama. Illustrating the authentic craft of
+          harvesting, scraping, rubbing, and delicate peeling.
         </p>
       </div>
 
@@ -147,7 +147,10 @@ export function Gallery() {
             </button>
             <img
               className="lightbox-image"
-              src={`/images/${GALLERY_PHOTOS[activePhotoIndex].id}-1440.webp`}
+              src={
+                GALLERY_PHOTOS[activePhotoIndex].src ||
+                `/images/${GALLERY_PHOTOS[activePhotoIndex].id}-1440.webp`
+              }
               alt={GALLERY_PHOTOS[activePhotoIndex].alt}
             />
             <div className="lightbox-meta">
@@ -187,7 +190,9 @@ export function Gallery() {
               </div>
             </div>
             <p className="lightbox-disclaimer">
-              Supporting editorial photograph. Not an image of the business.
+              {GALLERY_PHOTOS[activePhotoIndex].isOriginal
+                ? "Original photography from Ceylon Cinnamon Roots, Palassa, Ahangama."
+                : "Supporting editorial photography."}
             </p>
           </div>
         )}

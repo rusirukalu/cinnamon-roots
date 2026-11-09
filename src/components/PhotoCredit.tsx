@@ -7,6 +7,16 @@ interface PhotoCreditProps {
 }
 
 export function PhotoCredit({ photo, short = false }: PhotoCreditProps) {
+  if (photo.isOriginal) {
+    return (
+      <span className="photo-credit">
+        {short ? "Original" : "Original Photography"} · Ceylon Cinnamon Roots
+      </span>
+    );
+  }
+
+  if (!photo.page) return null;
+
   return (
     <a
       className="photo-credit"
