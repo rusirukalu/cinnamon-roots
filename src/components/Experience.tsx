@@ -41,7 +41,7 @@ export function Experience() {
             <div className="image-note">
               <span className="eyebrow">The full experience</span>
               <span className="image-note-duration">
-                120 <span>minutes</span>
+                1–1.5 <span>hours</span>
               </span>
             </div>
             <figcaption>

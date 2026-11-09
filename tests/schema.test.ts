@@ -9,21 +9,25 @@ import robots from "@/app/robots";
 import sitemap from "@/app/sitemap";
 
 describe("Structured Data / Schema.org (SEO & AEO)", () => {
-  it("builds a valid Organization schema", () => {
+  it("builds a valid Organization schema with host location", () => {
     const schema = buildOrganizationSchema();
     expect(schema["@context"]).toBe("https://schema.org");
     expect(schema["@type"]).toBe("Organization");
     expect(schema.name).toBe("Ceylon Cinnamon Roots");
     expect(schema.url).toBe("https://cinnamonroots.com/");
-    expect(schema.logo).toContain("/favicon.svg");
+    expect(schema.telephone).toBe("+94 75 145 8653");
+    expect(schema.address.streetAddress).toContain("Palassa, Thiththagalla");
   });
 
-  it("builds a valid TouristAttraction & LocalBusiness schema", () => {
+  it("builds a valid TouristAttraction & LocalBusiness schema with verified packages", () => {
     const schema = buildTouristAttractionSchema();
     expect(schema["@type"]).toContain("TouristAttraction");
     expect(schema["@type"]).toContain("LocalBusiness");
     expect(schema.address.addressCountry).toBe("LK");
-    expect(schema.offers.name).toBe("Plantation to Quill Experience");
+    expect(schema.hasMap).toContain("goo.gl/maps");
+    expect(Array.isArray(schema.offers)).toBe(true);
+    expect(schema.offers.length).toBeGreaterThan(0);
+    expect(schema.offers[0].priceCurrency).toBe("LKR");
     expect(schema.amenityFeature.length).toBeGreaterThan(0);
   });
 
@@ -34,9 +38,9 @@ describe("Structured Data / Schema.org (SEO & AEO)", () => {
 
     const firstFaq = schema.mainEntity[0];
     expect(firstFaq["@type"]).toBe("Question");
-    expect(firstFaq.name).toBe("What is included in the experience?");
+    expect(firstFaq.name).toBe("Where is Ceylon Cinnamon Roots located?");
     expect(firstFaq.acceptedAnswer["@type"]).toBe("Answer");
-    expect(firstFaq.acceptedAnswer.text).toContain("welcome");
+    expect(firstFaq.acceptedAnswer.text).toContain("Palassa, Thiththagalla");
   });
 
   it("aggregates all schemas into a complete graph", () => {

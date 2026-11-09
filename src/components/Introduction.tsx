@@ -11,11 +11,11 @@ export function Introduction() {
       <div className="experience-strip">
         <span>Not just a visit. A connection.</span>
         <div>
-          <span>120 minutes of discovery</span>
+          <span>1 to 1.5 hours of discovery</span>
           <i />
-          <span>1–10 guests</span>
+          <span>Flexible group sizes</span>
           <i />
-          <span>Authentically Ceylon</span>
+          <span>Palassa, Ahangama · Galle</span>
         </div>
       </div>
 

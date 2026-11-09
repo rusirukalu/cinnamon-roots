@@ -20,26 +20,26 @@ describe("BookingForm Component", () => {
     render(<BookingForm />);
 
     expect(screen.getByText("Plan your visit")).toBeInTheDocument();
-    expect(screen.getByLabelText(/Your experience/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Experience Package/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Preferred date/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Guests/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Your name/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/Email address/i)).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: /Prepare booking enquiry/i })
+      screen.getByRole("button", { name: /Prepare Booking Enquiry/i })
     ).toBeInTheDocument();
   });
 
-  it("shows validation errors when submitting an empty form", () => {
+  it("shows validation error when required date is missing", () => {
     render(<BookingForm />);
 
     const submitBtn = screen.getByRole("button", {
-      name: /Prepare booking enquiry/i,
+      name: /Prepare Booking Enquiry/i,
     });
     fireEvent.click(submitBtn);
 
     expect(
-      screen.getByText("Please select the experience.")
+      screen.getByText("Please choose a valid preferred date.")
     ).toBeInTheDocument();
   });
 
@@ -58,12 +58,9 @@ describe("BookingForm Component", () => {
     expect(guestInput.value).toBe("2");
   });
 
-  it("generates an enquiry summary on valid submission", () => {
+  it("generates an enquiry summary and WhatsApp button on valid submission", () => {
     render(<BookingForm />);
 
-    fireEvent.change(screen.getByLabelText(/Your experience/i), {
-      target: { value: "plantation-to-quill" },
-    });
     fireEvent.change(screen.getByLabelText(/Preferred date/i), {
       target: { value: "2099-12-31" },
     });
@@ -75,11 +72,14 @@ describe("BookingForm Component", () => {
     });
 
     const submitBtn = screen.getByRole("button", {
-      name: /Prepare booking enquiry/i,
+      name: /Prepare Booking Enquiry/i,
     });
     fireEvent.click(submitBtn);
 
-    expect(screen.getByText("Ready to share · Not yet sent")).toBeInTheDocument();
+    expect(screen.getByText("Ready to Send to Host")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: /Send via WhatsApp to Deshan/i })
+    ).toBeInTheDocument();
     expect(
       screen.getByRole("button", { name: /Copy enquiry/i })
     ).toBeInTheDocument();

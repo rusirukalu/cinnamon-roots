@@ -1,9 +1,71 @@
-import type { PhotoItem, ItineraryItem, JourneyStage, FaqItem } from "./types";
+import type { PhotoItem, ItineraryItem, JourneyStage, FaqItem, PackageOption } from "./types";
 
 export const SITE_METADATA = {
   website: "https://cinnamonroots.com/",
-  location: "Sri Lanka",
+  brand: "Ceylon Cinnamon Roots",
+  host: "Deshan Chathuranga",
+  address: "No. 53, Palassa, Thiththagalla, Ahangama, Galle, Sri Lanka",
+  locality: "Palassa, Thiththagalla, Ahangama, Galle",
+  location: "Ahangama, Galle · Sri Lanka",
+  whatsappUrl: "https://wa.me/94751458653",
+  whatsappNumber: "+94 75 145 8653",
+  googleMapsUrl: "https://goo.gl/maps/aKqmMmr2SuCDDxhG9",
+  excursionHubs: ["Galle", "Ahangama", "Koggala", "Weligama"],
+  duration: "Approximately 1 to 1.5 hours",
+  groupSizes: "Flexible group sizes (from couples to 30+ guest groups)",
+  inclusions: [
+    "A friendly stroll through the cinnamon plantation",
+    "Hands-on demos on harvesting and bark preparation",
+    "A fun, skilled cinnamon-peeling demonstration",
+    "Chatting with local growers and artisan interaction",
+    "Easy tips on drying, quality grading & merchant trade",
+    "Hands-on participation under artisan supervision",
+    "Warm, freshly brewed cinnamon tea",
+    "A tasty locally prepared cinnamon snack",
+    "A little cinnamon gift to take home",
+    "A handy informational brochure",
+  ],
 };
+
+export const PACKAGES: PackageOption[] = [
+  {
+    id: "the-together",
+    name: "The Together",
+    guestLabel: "For 2 guests",
+    priceLkr: 16700,
+    priceDisplay: "LKR 16,700 TOTAL",
+    description:
+      "A shared cinnamon experience for couples, friends and travel companions who want to discover the traditions behind Sri Lanka's famous spice.",
+  },
+  {
+    id: "the-collective",
+    name: "The Collective",
+    guestLabel: "For 10 guests",
+    priceLkr: 57500,
+    priceDisplay: "LKR 57,500 TOTAL",
+    description:
+      "A shared cultural experience for families, friends and organized tour groups looking to discover the people, traditions and process behind Ceylon cinnamon.",
+  },
+  {
+    id: "the-collective-plus",
+    name: "The Collective Plus",
+    guestLabel: "For 11 or more guests",
+    priceLkr: 5000,
+    priceDisplay: "LKR 5,000 PER GUEST",
+    isPerGuest: true,
+    description:
+      "A group-friendly option for larger organized tours, travel agencies and tour operators seeking an authentic local experience for their guests.",
+  },
+  {
+    id: "partner-operator",
+    name: "Tour Operator Partnership",
+    guestLabel: "Chauffeur & Agency Guides",
+    priceLkr: null,
+    priceDisplay: "Partner / Net Rates Available",
+    description:
+      "Agreed partner/net rates allowing tour operators, DMCs, hotels, and guides to include their own margin when selling to guests.",
+  },
+];
 
 export const PHOTOS: Record<string, PhotoItem> = {
   forest: {
@@ -11,7 +73,7 @@ export const PHOTOS: Record<string, PhotoItem> = {
     image: "https://images.unsplash.com/photo-1703566324597-9aa71bbab450",
     page: "https://unsplash.com/photos/a-lush-green-forest-filled-with-lots-of-trees-qi7sSLz74zQ",
     author: "Sadeep Jayashankha",
-    alt: "Sunlit rainforest canopy and ferns at Sinharaja in Sri Lanka; supporting landscape imagery, not the plantation",
+    alt: "Sunlit rainforest canopy and ferns at Sinharaja in Sri Lanka; supporting landscape imagery",
     caption: "A study in Sri Lankan green",
     position: "50% 60%",
   },
@@ -44,7 +106,7 @@ export const PHOTOS: Record<string, PhotoItem> = {
     image: "https://images.unsplash.com/photo-1643067077447-78239a403a18",
     page: "https://unsplash.com/photos/a-cup-of-tea-next-to-cinnamon-limes-limes-and-cinnamon-sticks-Sr-dbIWbap8",
     author: "Prchi Palwe",
-    alt: "A cup of tea arranged with cinnamon, citrus and spices; an editorial still life, not the served menu",
+    alt: "A cup of tea arranged with cinnamon, citrus and spices",
     caption: "A moment to slow down",
   },
   palms: {
@@ -52,7 +114,7 @@ export const PHOTOS: Record<string, PhotoItem> = {
     image: "https://images.unsplash.com/photo-1521706862577-47b053587f91",
     page: "https://unsplash.com/photos/palm-fronds-in-tropical-rainforest-9G1kXjqOq4U",
     author: "CHUTTERSNAP",
-    alt: "Overlapping green palm fronds in a tropical rainforest; botanical supporting imagery",
+    alt: "Overlapping green palm fronds in a tropical rainforest",
     caption: "The language of the tropics",
   },
   landscape: {
@@ -60,7 +122,7 @@ export const PHOTOS: Record<string, PhotoItem> = {
     image: "https://images.unsplash.com/photo-1712144234879-b2c4b4e54bb2",
     page: "https://unsplash.com/photos/a-lush-green-forest-filled-with-lots-of-trees-swhpF6VRGWc",
     author: "sander traa",
-    alt: "Sunlit tropical hills and palms in Ella, Sri Lanka; a supporting landscape photograph, not the plantation",
+    alt: "Sunlit tropical hills and palms in southern Sri Lanka",
     caption: "Sri Lanka, beyond the familiar",
   },
   cake: {
@@ -68,7 +130,7 @@ export const PHOTOS: Record<string, PhotoItem> = {
     image: "https://images.unsplash.com/photo-1569775683473-c534979f35a9",
     page: "https://unsplash.com/photos/baked-bread-moBQMk---6g",
     author: "Yulia Khlebnikova",
-    alt: "Sliced coconut and ginger loaf cake on a pale board; an editorial food study, not the cinnamon cake served at the experience",
+    alt: "Sliced loaf cake on a pale board",
     caption: "The pleasure of a pause.",
   },
 };
@@ -101,91 +163,96 @@ export const ITINERARY: ItineraryItem[] = [
   {
     title: "A warm welcome",
     minutes: "10",
-    text: "Arrive, settle in and meet the story behind your visit. A personal introduction to Ceylon Cinnamon Roots.",
+    text: "Arrive at Palassa, Thiththagalla, settle in and meet host Deshan Chathuranga and the story behind Ceylon Cinnamon Roots.",
   },
   {
     title: "The story of Ceylon cinnamon",
     minutes: "10",
-    text: "Discover the heritage of Ceylon cinnamon and its place in Sri Lankan culture, agriculture and everyday life.",
+    text: "Discover the heritage of authentic Ceylon cinnamon (Cinnamomum verum) and its distinctive place in Sri Lankan life and global spice history.",
   },
   {
     title: "The cinnamon journey",
-    minutes: "70",
-    text: "The heart of your experience. Explore the plantation, discover harvesting and try scraping, rubbing, peeling and quill-making with an artisan.",
+    minutes: "50",
+    text: "The heart of your experience. Walk the plantation, discover branch harvesting, and witness outer bark scraping, rubbing, peeling, and quill making with a skilled artisan.",
     featured: true,
   },
   {
     title: "Taste & discover",
-    minutes: "27",
-    text: "Ask questions, share discoveries and enjoy cinnamon tea, drinks, cake and locally prepared cinnamon treats.",
+    minutes: "17",
+    text: "Ask questions, share discoveries, and enjoy warm cinnamon tea and locally prepared authentic cinnamon treats.",
   },
   {
     title: "A meaningful farewell",
     minutes: "03",
-    text: "Take home souvenirs and memories, along with a new appreciation for the craft behind a familiar spice.",
+    text: "Receive a special cinnamon gift to take home and an informative brochure, leaving with a genuine connection to the craft.",
   },
 ];
 
 export const JOURNEY_STAGES: JourneyStage[] = [
   {
-    title: "Begin with the living tree.",
-    text: "Explore the plantation and get to know the cinnamon tree before its bark becomes a familiar spice.",
-    tag: "Explore",
+    title: "Explore the living tree.",
+    text: "Walk through the cinnamon plantation in Palassa and discover the plant, its botanical characteristics, and fragrant aroma.",
+    tag: "01 · Explore",
   },
   {
-    title: "Discover the harvest.",
-    text: "Follow the artisan’s demonstration of traditional harvesting, then take part under their guidance.",
-    tag: "Harvest",
+    title: "Harvest with care.",
+    text: "Learn how suitable branches are selected from the grove, traditionally harvested, and prepared for processing.",
+    tag: "02 · Harvest",
   },
   {
-    title: "Prepare with care.",
-    text: "Try the traditional scraping and rubbing of the bark. Discover how patient preparation shapes the craft.",
-    tag: "Prepare",
+    title: "Prepare the bark.",
+    text: "Observe the traditional removal of the rough outer skin followed by careful brass-rod rubbing to loosen the inner bark.",
+    tag: "03 · Prepare",
   },
   {
-    title: "Find the feel of the peel.",
-    text: "Experience peeling with the artisan beside you, learning through the movement of your own hands.",
-    tag: "Peel",
+    title: "The art of peeling.",
+    text: "Watch a master local producer demonstrate the delicate, paper-thin peeling of pure Ceylon cinnamon bark.",
+    tag: "04 · Peel",
   },
   {
-    title: "A quill, made by hand.",
-    text: "See how the bark is carefully prepared into quills and participate in quill-making with your guide.",
-    tag: "Craft",
+    title: "Hands-on participation.",
+    text: "Where safe and appropriate, take part in bark rubbing, scraping, and quill assembly under patient artisan supervision.",
+    tag: "05 · Participate",
+  },
+  {
+    title: "Grading & connection.",
+    text: "Understand drying, grading, and the journey from grower to merchant. Ask questions and take home freshly prepared cinnamon.",
+    tag: "06 · Connect",
   },
 ];
 
 export const FAQS: FaqItem[] = [
   {
-    q: "What is included in the experience?",
-    a: "Your visit includes a welcome, an introduction to Ceylon cinnamon heritage, plantation exploration, traditional demonstrations and hands-on participation, Q&A, cinnamon refreshments, souvenirs and farewell.",
+    q: "Where is Ceylon Cinnamon Roots located?",
+    a: "The experience is hosted at No. 53, Palassa, Thiththagalla, Ahangama, Galle, Sri Lanka. It is ideally situated for day excursions from Galle, Ahangama, Koggala, and Weligama.",
   },
   {
-    q: "How long is the experience?",
-    a: "Allow approximately 120 minutes. The central Plantation to Quill journey takes 70 minutes, with time before and after for introductions, cinnamon heritage, refreshments, questions and farewell.",
+    q: "What packages and pricing are available?",
+    a: "We offer 'The Together' for 2 guests at LKR 16,700 total; 'The Collective' for 10 guests at LKR 57,500 total; and 'The Collective Plus' for 11+ guests at a fixed LKR 5,000 per guest. Dedicated partner/net rates are also available for tour operators and chauffeur guides.",
   },
   {
-    q: "How many people can join?",
-    a: "The experience accommodates 1–10 guests. Include your guest count in your enquiry so arrangements can be discussed before your visit.",
+    q: "How long does the experience take?",
+    a: "The experience lasts approximately 1 to 1.5 hours (60 to 90 minutes). Timing and activities can be adjusted according to group requirements, weather, and tour itineraries.",
   },
   {
-    q: "Will I get to try the craft myself?",
-    a: "Yes. This is a demonstration-led, interactive experience. Guests participate in harvesting, scraping, rubbing, peeling and quill-making under an artisan’s guidance.",
+    q: "What is included with my visit?",
+    a: "Your visit includes a guided plantation stroll, harvesting demonstrations, rough skin scraping, bark rubbing, delicate peeling shows, hands-on guest participation, grower interactions, warm cinnamon tea, local cinnamon snacks, a complimentary take-home gift, and an informational brochure.",
   },
   {
-    q: "What refreshments are included?",
-    a: "Cinnamon tea and drinks, cinnamon cake and locally prepared cinnamon treats are part of the experience. Include any dietary needs in your enquiry; suitability needs to be confirmed before booking.",
+    q: "Can I participate in peeling the cinnamon myself?",
+    a: "Yes! Where safe and appropriate, guests are encouraged to try bark rubbing, scraping, and quill assembly under the direct supervision of our local artisans.",
   },
   {
-    q: "How do I book, and what does it cost?",
-    a: "Use the enquiry form to prepare your preferred date and guest count. Package rates and availability need to be confirmed directly with the business. An enquiry is not a booking confirmation, and this site does not accept payment.",
+    q: "How can I book or contact the host?",
+    a: "You can prepare an enquiry on this site and send it directly via WhatsApp to host Deshan Chathuranga at +94 75 145 8653, or submit the booking form for email confirmation.",
   },
   {
-    q: "Where is the plantation, and how do I get there?",
-    a: "The experience is in Sri Lanka. The exact address, directions and any transport arrangements need to be confirmed directly with Ceylon Cinnamon Roots before you travel.",
+    q: "Do you cater to tour operators and chauffeur guides?",
+    a: "Yes. We work closely with destination management companies, travel agencies, private chauffeur guides, and hotel concierges with agreed partner/net rates allowing operators to include their own margins.",
   },
   {
-    q: "What about accessibility, practical needs and cancellations?",
-    a: "Please ask the business to confirm accessibility, suitable clothing, dietary arrangements and cancellation terms before booking. No unverified policies or access guarantees are published here.",
+    q: "What refreshments and dietary considerations are provided?",
+    a: "Freshly brewed warm cinnamon tea and locally prepared cinnamon treats are served. Please mention any dietary requirements or allergies in your booking message.",
   },
 ];
 
@@ -193,5 +260,6 @@ export const NAV_LINKS = [
   ["The experience", "#experience"],
   ["Our heritage", "#heritage"],
   ["The plantation", "#plantation"],
+  ["Packages", "#booking"],
   ["Gallery", "#gallery"],
 ] as const;

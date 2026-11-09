@@ -26,6 +26,16 @@ export interface FaqItem {
   a: string;
 }
 
+export interface PackageOption {
+  id: string;
+  name: string;
+  guestLabel: string;
+  priceLkr: number | null;
+  priceDisplay: string;
+  description: string;
+  isPerGuest?: boolean;
+}
+
 export interface BookingFormData {
   experience: string;
   date: string;

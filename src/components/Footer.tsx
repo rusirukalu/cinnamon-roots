@@ -59,12 +59,15 @@ export function Footer() {
           ))}
         </div>
         <div className="footer-contact">
-          <span className="eyebrow">{SITE_METADATA.location}</span>
-          <a href={SITE_METADATA.website} target="_blank" rel="noreferrer">
-            cinnamonroots.com <ArrowIcon diagonal size={13} />
+          <span className="eyebrow">{SITE_METADATA.address}</span>
+          <a href={SITE_METADATA.whatsappUrl} target="_blank" rel="noreferrer">
+            WhatsApp: {SITE_METADATA.whatsappNumber} <ArrowIcon diagonal size={13} />
+          </a>
+          <a href={SITE_METADATA.googleMapsUrl} target="_blank" rel="noreferrer">
+            View on Google Maps <ArrowIcon diagonal size={13} />
           </a>
           <Link href="#booking">
-            Visit by enquiry <ArrowIcon diagonal size={13} />
+            Host: {SITE_METADATA.host} <ArrowIcon diagonal size={13} />
           </Link>
         </div>
         <Link className="back-to-top" href="#top" aria-label="Back to the roots">

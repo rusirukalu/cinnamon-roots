@@ -1,3 +1,4 @@
+import { PACKAGES, SITE_METADATA } from "./data";
 import type { BookingFormData, BookingFormErrors } from "./types";
 
 /**
@@ -23,6 +24,14 @@ export function formatDisplayDate(dateString: string): string {
 }
 
 /**
+ * Resolves a package title from its id.
+ */
+export function getPackageName(packageId: string): string {
+  const found = PACKAGES.find((p) => p.id === packageId);
+  return found ? `${found.name} (${found.guestLabel} · ${found.priceDisplay})` : packageId;
+}
+
+/**
  * Validates the booking enquiry form fields.
  * Returns an object with field-specific errors, or an empty object if valid.
  */
@@ -32,9 +41,9 @@ export function validateBookingForm(
 ): BookingFormErrors {
   const errors: BookingFormErrors = {};
 
-  // Experience validation
+  // Package validation
   if (!data.experience || data.experience.trim() === "") {
-    errors.experience = "Please select the experience.";
+    errors.experience = "Please select an experience package.";
   }
 
   // Date validation (must be valid YYYY-MM-DD and on or after today in Sri Lanka)
@@ -44,10 +53,10 @@ export function validateBookingForm(
     errors.date = "Please choose today or a future date in Sri Lanka.";
   }
 
-  // Guest count validation (integer between 1 and 10)
+  // Guest count validation (integer of at least 1)
   const guestCount = Number(data.guests);
-  if (!Number.isInteger(guestCount) || guestCount < 1 || guestCount > 10) {
-    errors.guests = "Please choose between 1 and 10 guests.";
+  if (!Number.isInteger(guestCount) || guestCount < 1) {
+    errors.guests = "Please enter at least 1 guest.";
   }
 
   // Name validation (min 2 characters after trimming)
@@ -74,19 +83,29 @@ export function validateBookingForm(
  */
 export function generateEnquiryMessage(data: BookingFormData): string {
   const formattedDate = formatDisplayDate(data.date);
-  const notesLine = data.notes.trim() ? `\nNotes: ${data.notes.trim()}` : "";
+  const packageLabel = getPackageName(data.experience);
+  const notesLine = data.notes.trim() ? `\nNotes / Requests: ${data.notes.trim()}` : "";
 
-  return `Hello Ceylon Cinnamon Roots,
+  return `Hello Deshan & Ceylon Cinnamon Roots,
 
-I would like to enquire about the Plantation to Quill experience.
+I would like to enquire about visiting your plantation in Palassa, Thiththagalla, Ahangama.
 
-Experience: Plantation to Quill (approximately 120 minutes)
-Preferred date: ${formattedDate} (Sri Lanka local date)
+Package: ${packageLabel}
+Preferred Date: ${formattedDate} (Sri Lanka local date)
 Guests: ${data.guests}
 Name: ${data.name.trim()}
 Email: ${data.email.trim()}${notesLine}
 
-Please confirm package options, prices and availability, as well as the exact location, directions and applicable cancellation terms.
+Location reference: No. 53, Palassa, Thiththagalla, Ahangama, Galle.
+Please confirm availability and booking arrangements.
 
 Thank you!`;
+}
+
+/**
+ * Creates a direct WhatsApp deep link pre-filled with the booking message.
+ */
+export function generateWhatsAppUrl(data: BookingFormData): string {
+  const message = generateEnquiryMessage(data);
+  return `https://wa.me/94751458653?text=${encodeURIComponent(message)}`;
 }

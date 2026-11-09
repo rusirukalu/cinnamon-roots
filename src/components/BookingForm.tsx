@@ -1,23 +1,21 @@
 "use client";
 
 import { useState, useRef, FormEvent } from "react";
-import { Check, Copy, Download, Minus, Plus } from "lucide-react";
+import { Check, Copy, Download, Minus, Plus, MessageCircle } from "lucide-react";
 import { Eyebrow } from "./Eyebrow";
 import { Reveal } from "./Reveal";
 import { ArrowIcon } from "./ArrowIcon";
-import { SITE_METADATA } from "@/lib/data";
-import {
-  BookingFormData,
-  BookingFormErrors,
-} from "@/lib/types";
+import { SITE_METADATA, PACKAGES } from "@/lib/data";
+import { BookingFormData, BookingFormErrors } from "@/lib/types";
 import {
   getTodayInSriLanka,
   validateBookingForm,
   generateEnquiryMessage,
+  generateWhatsAppUrl,
 } from "@/lib/booking";
 
 const INITIAL_FORM_DATA: BookingFormData = {
-  experience: "",
+  experience: "the-together",
   date: "",
   guests: "2",
   name: "",
@@ -38,7 +36,16 @@ export function BookingForm() {
   const minDate = getTodayInSriLanka();
 
   const handleFieldChange = (field: keyof BookingFormData, value: string) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
+    setFormData((prev) => {
+      const next = { ...prev, [field]: value };
+      // Convenience auto-adjust for package guest defaults
+      if (field === "experience") {
+        if (value === "the-together") next.guests = "2";
+        else if (value === "the-collective") next.guests = "10";
+        else if (value === "the-collective-plus" && Number(prev.guests) < 11) next.guests = "11";
+      }
+      return next;
+    });
     setErrors((prev) => ({ ...prev, [field]: undefined }));
   };
 
@@ -102,7 +109,7 @@ export function BookingForm() {
   return (
     <section id="booking" className="booking">
       <div className="booking-story">
-        <Eyebrow number="08">Make it your story</Eyebrow>
+        <Eyebrow number="08">Official Packages & Booking</Eyebrow>
         <Reveal>
           <h2>
             Your journey
@@ -110,36 +117,38 @@ export function BookingForm() {
             begins <em>here.</em>
           </h2>
           <p>
-            Leave with more than memories.
-            <br />
-            Leave with a connection.
+            Hosted locally by Deshan Chathuranga in Palassa, Thiththagalla,
+            Ahangama, Galle.
           </p>
         </Reveal>
+
         <dl className="booking-facts">
           <div>
-            <dt>Time to discover</dt>
+            <dt>Experience Duration</dt>
             <dd>
-              120 <span>minutes</span>
+              1 to 1.5 <span>hours</span>
             </dd>
           </div>
           <div>
-            <dt>Room for connection</dt>
+            <dt>Excursion Hubs</dt>
             <dd>
-              1–10 <span>guests</span>
+              Galle · Ahangama <span>Koggala · Weligama</span>
             </dd>
           </div>
         </dl>
+
         <div className="booking-includes">
-          <span className="eyebrow">All part of the experience</span>
+          <span className="eyebrow">All Inclusions</span>
           <p>
-            Plantation exploration · Traditional demonstrations · Hands-on
-            participation · Cinnamon refreshments · Souvenirs
+            Plantation stroll · Harvesting & peeling demos · Hands-on participation ·
+            Grower conversation · Warm cinnamon tea · Local cinnamon snack · Take-home gift · Brochure
           </p>
         </div>
+
         <p className="booking-quote">
-          A little time.
+          Flexible group sizes.
           <br />
-          A whole new <em>perspective.</em>
+          Partner & net rates <em>available for operators.</em>
         </p>
       </div>
 
@@ -148,7 +157,7 @@ export function BookingForm() {
           <div ref={resultRef} className="enquiry-result" tabIndex={-1}>
             <div className="result-label">
               <Check size={18} />
-              <span className="eyebrow">Ready to share · Not yet sent</span>
+              <span className="eyebrow">Ready to Send to Host</span>
             </div>
             <h3>
               Your story
@@ -156,9 +165,33 @@ export function BookingForm() {
               starts with <em>hello.</em>
             </h3>
             <p>
-              Your enquiry is ready. Copy or download it, then share it with
-              Ceylon Cinnamon Roots through a verified contact channel.
+              Your enquiry has been prepared. You can send it directly to host
+              Deshan via WhatsApp for the fastest response, or copy/download it.
             </p>
+
+            <div style={{ marginBottom: "1.25rem" }}>
+              <a
+                className="booking-submit"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "0.6rem",
+                  background: "var(--forest, #243D2E)",
+                  color: "#fff",
+                  textDecoration: "none",
+                  padding: "1rem 1.5rem",
+                  fontWeight: 600,
+                  width: "100%",
+                }}
+                href={generateWhatsAppUrl(formData)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <MessageCircle size={18} /> Send via WhatsApp to Deshan (+94 75 145 8653)
+              </a>
+            </div>
+
             <label className="eyebrow summary-label" htmlFor="enquiry-summary">
               Your prepared enquiry
             </label>
@@ -168,6 +201,7 @@ export function BookingForm() {
               value={enquirySummary}
               rows={12}
             />
+
             <div className="result-actions">
               <button
                 className="booking-submit"
@@ -193,9 +227,10 @@ export function BookingForm() {
                 <Download size={18} />
               </button>
             </div>
+
             <p className="copy-status" role="status" aria-live="polite">
               {isCopied
-                ? "Copied. Paste your enquiry into your message to the business."
+                ? "Copied to clipboard. Paste into your message to the host."
                 : useFallbackSelect
                 ? "The text is selected. Please copy it using your device’s copy command."
                 : ""}
@@ -203,17 +238,15 @@ export function BookingForm() {
 
             <a
               className="contact-handoff"
-              href={SITE_METADATA.website}
+              href={SITE_METADATA.googleMapsUrl}
               target="_blank"
               rel="noreferrer"
             >
-              Open the official business website <ArrowIcon diagonal />
+              View Location on Google Maps <ArrowIcon diagonal />
             </a>
             <p className="handoff-note">
-              A direct business contact has not been verified for this preview.
-              Opening the official website does not automatically send this
-              enquiry. Availability and contact access must be confirmed with
-              the owner.
+              No. 53, Palassa, Thiththagalla, Ahangama, Galle, Sri Lanka.
+              Partner and net rates available for tour operators and chauffeur guides.
             </p>
 
             <button
@@ -232,15 +265,15 @@ export function BookingForm() {
         ) : (
           <form ref={formRef} onSubmit={handleSubmit} noValidate>
             <span className="eyebrow">Plan your visit</span>
-            <h3>Let’s start with you.</h3>
+            <h3>Choose your package.</h3>
             <p className="form-intro">
-              Choose a preferred date and tell us who’s coming. Rates and
-              arrangements are confirmed directly by the team.
+              Select an official experience package and preferred date. Directly
+              hosted in Palassa, Thiththagalla, Ahangama.
             </p>
 
             <div className="form-field">
               <label htmlFor="experience-package">
-                Your experience <span>*</span>
+                Experience Package <span>*</span>
               </label>
               <div className="select-wrap">
                 <select
@@ -251,12 +284,11 @@ export function BookingForm() {
                   required
                   {...getAriaProps("experience")}
                 >
-                  <option value="" disabled>
-                    Select your experience
-                  </option>
-                  <option value="plantation-to-quill">
-                    Plantation to Quill · 120 minutes
-                  </option>
+                  {PACKAGES.map((pkg) => (
+                    <option key={pkg.id} value={pkg.id}>
+                      {pkg.name} — {pkg.guestLabel} ({pkg.priceDisplay})
+                    </option>
+                  ))}
                 </select>
               </div>
               {errors.experience && (
@@ -265,8 +297,7 @@ export function BookingForm() {
                 </span>
               )}
               <span className="field-help">
-                The guided experience described on this page. Package options
-                and prices on enquiry.
+                {PACKAGES.find((p) => p.id === formData.experience)?.description}
               </span>
             </div>
 
@@ -315,7 +346,7 @@ export function BookingForm() {
                     name="guests"
                     type="number"
                     min="1"
-                    max="10"
+                    max="100"
                     step="1"
                     inputMode="numeric"
                     value={formData.guests}
@@ -328,11 +359,10 @@ export function BookingForm() {
                     onClick={() =>
                       handleFieldChange(
                         "guests",
-                        String(Math.min(10, Number(formData.guests || 1) + 1))
+                        String(Number(formData.guests || 1) + 1)
                       )
                     }
                     aria-label="Add one guest"
-                    disabled={Number(formData.guests) >= 10}
                   >
                     <Plus size={14} />
                   </button>
@@ -355,7 +385,7 @@ export function BookingForm() {
                   name="name"
                   type="text"
                   autoComplete="name"
-                  placeholder="Full name"
+                  placeholder="Full name or Tour Agency"
                   maxLength={100}
                   value={formData.name}
                   onChange={(e) => handleFieldChange("name", e.target.value)}
@@ -403,7 +433,7 @@ export function BookingForm() {
                 name="notes"
                 rows={2}
                 maxLength={1200}
-                placeholder="Dietary needs, practical questions or a special occasion…"
+                placeholder="Dietary requirements, pickup location (Galle/Ahangama/Weligama), or agency partnership enquiry…"
                 value={formData.notes}
                 onChange={(e) => handleFieldChange("notes", e.target.value)}
                 {...getAriaProps("notes")}
@@ -416,12 +446,11 @@ export function BookingForm() {
             </div>
 
             <button className="booking-submit" type="submit">
-              Prepare booking enquiry <ArrowIcon diagonal size={20} />
+              Prepare Booking Enquiry <ArrowIcon diagonal size={20} />
             </button>
             <p className="form-notice">
-              No payment. No instant confirmation. This form prepares a request
-              to share with the business; it does not send your details or
-              reserve a date.
+              Host contact: Deshan Chathuranga · WhatsApp: +94 75 145 8653.
+              Flexible timing and group arrangements available.
             </p>
           </form>
         )}

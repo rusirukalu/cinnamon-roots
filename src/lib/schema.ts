@@ -1,4 +1,4 @@
-import { FAQS } from "./data";
+import { FAQS, PACKAGES, SITE_METADATA } from "./data";
 
 /**
  * Builds Schema.org Organization structured data.
@@ -10,9 +10,20 @@ export function buildOrganizationSchema() {
     name: "Ceylon Cinnamon Roots",
     url: "https://cinnamonroots.com/",
     logo: "https://cinnamonroots.com/favicon.svg",
+    telephone: SITE_METADATA.whatsappNumber,
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "No. 53, Palassa, Thiththagalla",
+      addressLocality: "Ahangama",
+      addressRegion: "Galle, Southern Province",
+      addressCountry: "LK",
+    },
     description:
-      "An authentic Ceylon cinnamon plantation and cultural experience in Sri Lanka.",
-    sameAs: ["https://cinnamonroots.com/"],
+      "An authentic Ceylon cinnamon plantation and cultural experience hosted by Deshan Chathuranga in Ahangama, Galle, Sri Lanka.",
+    sameAs: [
+      "https://cinnamonroots.com/",
+      SITE_METADATA.googleMapsUrl,
+    ],
   };
 }
 
@@ -26,14 +37,18 @@ export function buildTouristAttractionSchema() {
     "@type": ["TouristAttraction", "LocalBusiness"],
     name: "Ceylon Cinnamon Roots",
     description:
-      "A hands-on Ceylon cinnamon plantation and cultural experience in Sri Lanka. Approximately 120 minutes for 1–10 guests, including plantation exploration, traditional bark harvesting, scraping, peeling, quill-making, and local refreshments.",
+      "A locally hosted Ceylon cinnamon plantation experience in Palassa, Thiththagalla, Ahangama, Galle. Approximately 1 to 1.5 hours with harvesting, rough skin scraping, bark rubbing, delicate peeling, warm cinnamon tea, snacks, and souvenirs.",
     url: "https://cinnamonroots.com/",
+    telephone: SITE_METADATA.whatsappNumber,
+    hasMap: SITE_METADATA.googleMapsUrl,
     image:
       "https://images.unsplash.com/photo-1703566324597-9aa71bbab450?auto=format&fit=crop&w=1200&h=630&q=80",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "No. 53, Palassa, Thiththagalla",
+      addressLocality: "Ahangama",
+      addressRegion: "Galle, Southern Province",
       addressCountry: "LK",
-      addressLocality: "Sri Lanka",
     },
     geo: {
       "@type": "GeoCoordinates",
@@ -44,38 +59,49 @@ export function buildTouristAttractionSchema() {
       "Agritourism",
       "Eco Tourism",
       "Heritage Tourism",
+      "Culinary Tourism",
     ],
     amenityFeature: [
       {
         "@type": "LocationFeatureSpecification",
-        name: "Plantation Exploration",
+        name: "Plantation Walk",
         value: true,
       },
       {
         "@type": "LocationFeatureSpecification",
-        name: "Hands-on Cinnamon Peeling & Quill Making",
+        name: "Harvesting & Bark Peeling Demonstrations",
         value: true,
       },
       {
         "@type": "LocationFeatureSpecification",
-        name: "Cinnamon Tastings & Refreshments",
+        name: "Hands-on Guest Participation",
         value: true,
       },
       {
         "@type": "LocationFeatureSpecification",
-        name: "Small Group Intimacy (1 to 10 guests)",
+        name: "Warm Cinnamon Tea & Snack",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Complimentary Cinnamon Gift & Brochure",
+        value: true,
+      },
+      {
+        "@type": "LocationFeatureSpecification",
+        name: "Tour Operator Partner Rates",
         value: true,
       },
     ],
-    offers: {
+    offers: PACKAGES.filter((p) => p.priceLkr !== null).map((pkg) => ({
       "@type": "Offer",
-      name: "Plantation to Quill Experience",
-      description:
-        "120-minute guided cinnamon plantation and craft workshop for 1–10 guests.",
-      priceCurrency: "USD",
+      name: pkg.name,
+      description: pkg.description,
+      price: pkg.priceLkr,
+      priceCurrency: "LKR",
       availability: "https://schema.org/InStock",
       url: "https://cinnamonroots.com/#booking",
-    },
+    })),
   };
 }
 

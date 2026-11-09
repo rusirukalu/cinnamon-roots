@@ -1,10 +1,9 @@
-import Link from "next/link";
 import { Eyebrow } from "./Eyebrow";
 import { Reveal } from "./Reveal";
 import { ResponsiveImage } from "./ResponsiveImage";
 import { PhotoCredit } from "./PhotoCredit";
 import { ArrowIcon } from "./ArrowIcon";
-import { PHOTOS } from "@/lib/data";
+import { PHOTOS, SITE_METADATA } from "@/lib/data";
 
 export function Plantation() {
   return (
@@ -19,8 +18,8 @@ export function Plantation() {
           </h2>
         </Reveal>
         <p>
-          A living landscape, not a production line. Discover the growing side
-          of cinnamon and the craft that begins here.
+          A living grove in Palassa, Thiththagalla, Ahangama. Discover where
+          authentic Ceylon cinnamon is grown, harvested, and crafted by hand.
         </p>
       </div>
 
@@ -32,7 +31,7 @@ export function Plantation() {
               sizes="(max-width: 700px) 100vw, 72vw"
             />
             <figcaption>
-              <span>Landscape study / Sri Lanka</span>
+              <span>Landscape study / Southern Province</span>
               <PhotoCredit photo={PHOTOS.landscape} />
             </figcaption>
           </figure>
@@ -46,24 +45,27 @@ export function Plantation() {
           </span>
           <span className="eyebrow">Walk. Notice. Connect.</span>
           <p>
-            Explore a real cinnamon plantation as part of your guided experience.
-            Meet the tree, understand the harvest, and see the familiar from a
-            new perspective.
+            Explore our authentic plantation in Ahangama. Easy access for day
+            excursions from Galle, Ahangama, Koggala, and Weligama.
           </p>
-          <Link className="location-note" href="#booking">
+          <a
+            className="location-note"
+            href={SITE_METADATA.googleMapsUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
             <span>
-              Sri Lanka
+              Palassa, Thiththagalla, Ahangama
               <br />
-              <small>Request location & directions</small>
+              <small>View on Google Maps (Directions)</small>
             </span>
             <ArrowIcon diagonal size={20} />
-          </Link>
+          </a>
         </div>
       </div>
 
       <p className="imagery-disclaimer">
-        The landscapes on this page are supporting Unsplash imagery of Sri Lanka
-        and the tropics, not photographs of the Ceylon Cinnamon Roots premises.
+        No. 53, Palassa, Thiththagalla, Ahangama, Galle, Sri Lanka · Host: Deshan Chathuranga
       </p>
     </section>
   );

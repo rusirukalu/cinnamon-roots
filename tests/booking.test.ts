@@ -3,14 +3,15 @@ import {
   validateBookingForm,
   formatDisplayDate,
   generateEnquiryMessage,
+  generateWhatsAppUrl,
 } from "@/lib/booking";
 import type { BookingFormData } from "@/lib/types";
 
 describe("validateBookingForm", () => {
   const baseValidData: BookingFormData = {
-    experience: "plantation-to-quill",
+    experience: "the-together",
     date: "2026-12-01",
-    guests: "4",
+    guests: "2",
     name: "John Doe",
     email: "john@example.com",
     notes: "No special requirements.",
@@ -27,18 +28,18 @@ describe("validateBookingForm", () => {
     expect(Object.keys(errors)).toHaveLength(0);
   });
 
-  it("should accept guest count boundary values 1 and 10", () => {
+  it("should accept flexible guest counts", () => {
     expect(
       Object.keys(validateBookingForm({ ...baseValidData, guests: "1" }, "2026-11-09"))
     ).toHaveLength(0);
     expect(
-      Object.keys(validateBookingForm({ ...baseValidData, guests: "10" }, "2026-11-09"))
+      Object.keys(validateBookingForm({ ...baseValidData, guests: "30" }, "2026-11-09"))
     ).toHaveLength(0);
   });
 
   it("should fail when experience is empty", () => {
     const errors = validateBookingForm({ ...baseValidData, experience: "" }, "2026-11-09");
-    expect(errors.experience).toBe("Please select the experience.");
+    expect(errors.experience).toBe("Please select an experience package.");
   });
 
   it("should fail when date is malformed or invalid", () => {
@@ -51,12 +52,9 @@ describe("validateBookingForm", () => {
     expect(errors.date).toBe("Please choose today or a future date in Sri Lanka.");
   });
 
-  it("should fail when guest count is below 1 or above 10", () => {
+  it("should fail when guest count is below 1", () => {
     const errorsUnder = validateBookingForm({ ...baseValidData, guests: "0" }, "2026-11-09");
-    expect(errorsUnder.guests).toBe("Please choose between 1 and 10 guests.");
-
-    const errorsOver = validateBookingForm({ ...baseValidData, guests: "11" }, "2026-11-09");
-    expect(errorsOver.guests).toBe("Please choose between 1 and 10 guests.");
+    expect(errorsUnder.guests).toBe("Please enter at least 1 guest.");
   });
 
   it("should fail when name is shorter than 2 characters", () => {
@@ -88,37 +86,40 @@ describe("formatDisplayDate", () => {
   });
 });
 
-describe("generateEnquiryMessage", () => {
-  it("should generate formatted enquiry with notes", () => {
+describe("generateEnquiryMessage & WhatsApp Link", () => {
+  it("should generate formatted enquiry with host and location reference", () => {
     const data: BookingFormData = {
-      experience: "plantation-to-quill",
+      experience: "the-together",
       date: "2026-12-15",
-      guests: "3",
+      guests: "2",
       name: "Alice Smith",
       email: "alice@example.com",
       notes: "Cinnamon allergy in party",
     };
 
     const message = generateEnquiryMessage(data);
-    expect(message).toContain("Experience: Plantation to Quill (approximately 120 minutes)");
-    expect(message).toContain("Preferred date: 15 December 2026 (Sri Lanka local date)");
-    expect(message).toContain("Guests: 3");
-    expect(message).toContain("Name: Alice Smith");
-    expect(message).toContain("Email: alice@example.com");
-    expect(message).toContain("Notes: Cinnamon allergy in party");
+    expect(message).toContain("Hello Deshan & Ceylon Cinnamon Roots");
+    expect(message).toContain("Package: The Together (For 2 guests · LKR 16,700 TOTAL)");
+    expect(message).toContain("Preferred Date: 15 December 2026");
+    expect(message).toContain("Guests: 2");
+    expect(message).toContain("No. 53, Palassa, Thiththagalla, Ahangama, Galle");
+    expect(message).toContain("Notes / Requests: Cinnamon allergy in party");
+
+    const waUrl = generateWhatsAppUrl(data);
+    expect(waUrl).toContain("https://wa.me/94751458653?text=");
   });
 
   it("should omit notes section when notes are empty", () => {
     const data: BookingFormData = {
-      experience: "plantation-to-quill",
+      experience: "the-collective",
       date: "2026-12-15",
-      guests: "2",
+      guests: "10",
       name: "Bob Jones",
       email: "bob@example.com",
       notes: "   ",
     };
 
     const message = generateEnquiryMessage(data);
-    expect(message).not.toContain("Notes:");
+    expect(message).not.toContain("Notes / Requests:");
   });
 });
