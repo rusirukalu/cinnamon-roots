@@ -1,10 +1,15 @@
 "use client";
 
 import { useState, useRef, FormEvent } from "react";
-import { Check, Copy, Download, Minus, Plus, MessageCircle } from "lucide-react";
+import { Check, Copy, Download, MessageCircle, User, Mail, MessageSquare } from "lucide-react";
 import { Eyebrow } from "./Eyebrow";
 import { Reveal } from "./Reveal";
 import { ArrowIcon } from "./ArrowIcon";
+import { CustomSelect } from "./ui/CustomSelect";
+import { CustomDatePicker } from "./ui/CustomDatePicker";
+import { CustomNumberStepper } from "./ui/CustomNumberStepper";
+import { CustomInput } from "./ui/CustomInput";
+import { CustomTextarea } from "./ui/CustomTextarea";
 import { SITE_METADATA, PACKAGES } from "@/lib/data";
 import { BookingFormData, BookingFormErrors } from "@/lib/types";
 import {
@@ -275,22 +280,22 @@ export function BookingForm() {
               <label htmlFor="experience-package">
                 Experience Package <span>*</span>
               </label>
-              <div className="select-wrap">
-                <select
-                  id="experience-package"
-                  name="experience"
-                  value={formData.experience}
-                  onChange={(e) => handleFieldChange("experience", e.target.value)}
-                  required
-                  {...getAriaProps("experience")}
-                >
-                  {PACKAGES.map((pkg) => (
-                    <option key={pkg.id} value={pkg.id}>
-                      {pkg.name} — {pkg.guestLabel} ({pkg.priceDisplay})
-                    </option>
-                  ))}
-                </select>
-              </div>
+              <CustomSelect
+                id="experience-package"
+                name="experience"
+                value={formData.experience}
+                onChange={(val) => handleFieldChange("experience", val)}
+                options={PACKAGES.map((pkg) => ({
+                  value: pkg.id,
+                  label: pkg.name,
+                  guestLabel: pkg.guestLabel,
+                  priceDisplay: pkg.priceDisplay,
+                  description: pkg.description,
+                }))}
+                error={errors.experience}
+                required
+                {...getAriaProps("experience")}
+              />
               {errors.experience && (
                 <span className="field-error" id="experience-error">
                   {errors.experience}
@@ -306,13 +311,13 @@ export function BookingForm() {
                 <label htmlFor="preferred-date">
                   Preferred date <span>*</span>
                 </label>
-                <input
+                <CustomDatePicker
                   id="preferred-date"
                   name="date"
-                  type="date"
-                  min={minDate}
+                  minDate={minDate}
                   value={formData.date}
-                  onChange={(e) => handleFieldChange("date", e.target.value)}
+                  onChange={(val) => handleFieldChange("date", val)}
+                  error={errors.date}
                   required
                   {...getAriaProps("date")}
                 />
@@ -327,46 +332,17 @@ export function BookingForm() {
                 <label htmlFor="guest-count">
                   Guests <span>*</span>
                 </label>
-                <div className="guest-control">
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleFieldChange(
-                        "guests",
-                        String(Math.max(1, Number(formData.guests || 1) - 1))
-                      )
-                    }
-                    aria-label="Remove one guest"
-                    disabled={Number(formData.guests) <= 1}
-                  >
-                    <Minus size={14} />
-                  </button>
-                  <input
-                    id="guest-count"
-                    name="guests"
-                    type="number"
-                    min="1"
-                    max="100"
-                    step="1"
-                    inputMode="numeric"
-                    value={formData.guests}
-                    onChange={(e) => handleFieldChange("guests", e.target.value)}
-                    required
-                    {...getAriaProps("guests")}
-                  />
-                  <button
-                    type="button"
-                    onClick={() =>
-                      handleFieldChange(
-                        "guests",
-                        String(Number(formData.guests || 1) + 1)
-                      )
-                    }
-                    aria-label="Add one guest"
-                  >
-                    <Plus size={14} />
-                  </button>
-                </div>
+                <CustomNumberStepper
+                  id="guest-count"
+                  name="guests"
+                  min={1}
+                  max={100}
+                  value={formData.guests}
+                  onChange={(val) => handleFieldChange("guests", val)}
+                  error={errors.guests}
+                  required
+                  {...getAriaProps("guests")}
+                />
                 {errors.guests && (
                   <span className="field-error" id="guests-error">
                     {errors.guests}
@@ -380,7 +356,7 @@ export function BookingForm() {
                 <label htmlFor="guest-name">
                   Your name <span>*</span>
                 </label>
-                <input
+                <CustomInput
                   id="guest-name"
                   name="name"
                   type="text"
@@ -389,6 +365,8 @@ export function BookingForm() {
                   maxLength={100}
                   value={formData.name}
                   onChange={(e) => handleFieldChange("name", e.target.value)}
+                  icon={<User size={15} />}
+                  error={errors.name}
                   required
                   {...getAriaProps("name")}
                 />
@@ -403,7 +381,7 @@ export function BookingForm() {
                 <label htmlFor="guest-email">
                   Email address <span>*</span>
                 </label>
-                <input
+                <CustomInput
                   id="guest-email"
                   name="email"
                   type="email"
@@ -412,6 +390,8 @@ export function BookingForm() {
                   maxLength={254}
                   value={formData.email}
                   onChange={(e) => handleFieldChange("email", e.target.value)}
+                  icon={<Mail size={15} />}
+                  error={errors.email}
                   required
                   {...getAriaProps("email")}
                 />
@@ -428,14 +408,16 @@ export function BookingForm() {
                 Anything we should know?{" "}
                 <span className="optional">Optional</span>
               </label>
-              <textarea
+              <CustomTextarea
                 id="guest-notes"
                 name="notes"
-                rows={2}
+                rows={3}
                 maxLength={1200}
                 placeholder="Dietary requirements, pickup location (Galle/Ahangama/Weligama), or agency partnership enquiry…"
                 value={formData.notes}
                 onChange={(e) => handleFieldChange("notes", e.target.value)}
+                icon={<MessageSquare size={15} />}
+                error={errors.notes}
                 {...getAriaProps("notes")}
               />
               {errors.notes && (
