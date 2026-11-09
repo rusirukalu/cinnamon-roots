@@ -38,8 +38,8 @@ Ceylon Cinnamon Roots invites international travelers to discover the craft, cul
 
 ### Installation
 ```bash
-git clone https://github.com/rusirukalu/ceylon-cinnamon-roots.git
-cd ceylon-cinnamon-roots
+git clone https://github.com/rusirukalu/cinnamon-roots.git
+cd cinnamon-roots
 npm install
 ```
 
